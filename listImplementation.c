@@ -16,12 +16,12 @@ void addToList(pGroup* head, char* name, int size, groupStatus status)
 	}
 	newNode -> pNext = NULL;
 	pGroup pLastNode = doFindLastNode(*head);
-	if(pLastNode == NULL) {								//Check if last node in the list is null.
-		*head = newNode;								//If yes then make the head point to the new node.
+	if(pLastNode == NULL) {					//Check if last node in the list is null.
+		*head = newNode;				//If yes then make the head point to the new node.
 		return;
 	}
 	else {
-		pLastNode->pNext = newNode;						//If no then link the last node with the newNode.
+		pLastNode->pNext = newNode;			//If no then link the last node with the newNode.
 		return;
 	}
 }
@@ -32,10 +32,10 @@ void addToList(pGroup* head, char* name, int size, groupStatus status)
 //This function returns a boolean value of TRUE is name is present. It returns FALSE otherwise.
 boolean doesNameExist(pGroup head, char *name)
 {
-	if(head == NULL) {							//Check if list is empty
+	if(head == NULL) {					//Check if list is empty
 		return FALSE;
 	}
-	while(head != NULL) {						//Loop until end of the list is reached.
+	while(head != NULL) {					//Loop until end of the list is reached.
 		if(strcmp(head->name, name) == 0) {		//Return true if the given name is already present in the list
 			return TRUE;
 		}
@@ -58,7 +58,7 @@ boolean updateStatus(pGroup head, char *name, int debugMode)
 	if(debugMode == TRUE) {
 		printf("DEBUG MODE:\n\tName\tSize\tStatus\n");
 	}
-	while(head != NULL) {						//Loop until the pointer does not point to NULL
+	while(head != NULL) {					//Loop until the pointer does not point to NULL
 		if(strcmp(head->name, name) == 0){		//Compare the names stored in the list with the name entered by user.
 			if(head->status == inRestaurant){
 				printf("The customer is already waiting in the restaurant.");
@@ -89,7 +89,7 @@ boolean updateStatus(pGroup head, char *name, int debugMode)
 char* retrieveAndRemove(pGroup *head, int tableSize, int debugMode)
 {
 	//char* status;
-	char* groupRetrieved = "No group";									//Stores the name of the group removed.
+	char* groupRetrieved = "No group";					//Stores the name of the group removed.
 	pGroup curr = *head;
 	if(curr == NULL){
 		printf("List is empty.\n");
@@ -112,7 +112,7 @@ char* retrieveAndRemove(pGroup *head, int tableSize, int debugMode)
 		if((curr->pNext->groupSize <= tableSize) && (curr->pNext->status == inRestaurant)) {
 			curr->pNext = curr-> pNext -> pNext;
 			groupRetrieved = curr->pNext->name;
-			free(curr->pNext);			//deallocating memory for the node removed.
+			free(curr->pNext);		//deallocating memory for the node removed.
 			return groupRetrieved;
 		}
 		curr = curr->pNext;
