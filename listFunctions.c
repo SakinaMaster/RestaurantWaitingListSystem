@@ -37,22 +37,22 @@ void doAdd (pGroup* head)
  	/* get group size from input */
  	int size = getPosInt();
  	if (size < 1) {
-    	printf ("Error: Add command requires an integer value of at least 1\n");
-    	printf ("Add command is of form: a <size> <name>\n");
-    	printf ("  where: <size> is the size of the group making the reservation\n");
-    	printf ("         <name> is the name of the group making the reservation\n");
-    	return;
+		printf ("Error: Add command requires an integer value of at least 1\n");
+		printf ("Add command is of form: a <size> <name>\n");
+		printf ("  where: <size> is the size of the group making the reservation\n");
+		printf ("         <name> is the name of the group making the reservation\n");
+		return;
   	}
 
  	/* get group name from input */
  	char *name = getName();
 	if (NULL == name) {
-    	printf ("Error: Add command requires a name to be given\n");
-    	printf ("Add command is of form: a <size> <name>\n");
-    	printf ("  where: <size> is the size of the group making the reservation\n");
-    	printf ("         <name> is the name of the group making the reservation\n");
-    	return;
-  }
+		printf ("Error: Add command requires a name to be given\n");
+		printf ("Add command is of form: a <size> <name>\n");
+		printf ("  where: <size> is the size of the group making the reservation\n");
+		printf ("         <name> is the name of the group making the reservation\n");
+		return;
+  	}
    
 	if(doesNameExist(*head, name) == TRUE) {
 		printf("Name already exists in the list.\n");
@@ -74,21 +74,21 @@ void doCallAhead (pGroup* head)
  	/* get group size from input */
  	int size = getPosInt();
  	if (size < 1) {
-    	printf ("Error: Call-ahead command requires an integer value of at least 1\n");
-    	printf ("Call-ahead command is of form: c <size> <name>\n");
-    	printf ("  where: <size> is the size of the group making the reservation\n");
-    	printf ("         <name> is the name of the group making the reservation\n");
-    	return;
+		printf ("Error: Call-ahead command requires an integer value of at least 1\n");
+		printf ("Call-ahead command is of form: c <size> <name>\n");
+		printf ("  where: <size> is the size of the group making the reservation\n");
+		printf ("         <name> is the name of the group making the reservation\n");
+		return;
    }
 
  	/* get group name from input */
  	char *name = getName();
  	if (NULL == name) {
-    	printf ("Error: Call-ahead command requires a name to be given\n");
-    	printf ("Call-ahead command is of form: c <size> <name>\n");
-    	printf ("  where: <size> is the size of the group making the reservation\n");
-    	printf ("         <name> is the name of the group making the reservation\n");
-    	return;
+		printf ("Error: Call-ahead command requires a name to be given\n");
+		printf ("Call-ahead command is of form: c <size> <name>\n");
+		printf ("  where: <size> is the size of the group making the reservation\n");
+		printf ("         <name> is the name of the group making the reservation\n");
+		return;
    	}
 
 	if(doesNameExist(*head, name) == TRUE) {
@@ -110,11 +110,11 @@ void doWaiting (pGroup head, int debugMode)
 	/* get group name from input */
  	char *name = getName();
  	if (NULL == name) {
-    	printf ("Error: Waiting command requires a name to be given\n");
-    	printf ("Waiting command is of form: w <name>\n");
-    	printf ("  where: <name> is the name of the group that is now waiting\n");
-    	return;
-  }
+		printf ("Error: Waiting command requires a name to be given\n");
+		printf ("Waiting command is of form: w <name>\n");
+		printf ("  where: <name> is the name of the group that is now waiting\n");
+		return;
+  	}
 	if(doesNameExist(head, name) == FALSE){
 		printf("Name does not exist in the list");
 		return;
@@ -132,11 +132,11 @@ void doRetrieve (pGroup *head, int debugMode)
 	 /* get table size from input */
  	int size = getPosInt();
  	if (size < 1) {
-    	printf ("Error: Retrieve command requires an integer value of at least 1\n");
-    	printf ("Retrieve command is of form: r <size>\n");
-    	printf ("  where: <size> is the size of the group making the reservation\n");
-    	return;
-  }
+		printf ("Error: Retrieve command requires an integer value of at least 1\n");
+		printf ("Retrieve command is of form: r <size>\n");
+		printf ("  where: <size> is the size of the group making the reservation\n");
+		return;
+  	}
  	clearToEoln();
  	char* groupRemoved;							
  	groupRemoved = retrieveAndRemove(head, size, debugMode);		//Store the value returned by retrieveAndRemove() in a char* variable.
@@ -152,24 +152,24 @@ void doRetrieve (pGroup *head, int debugMode)
 //If command 'l <name>' is entered, this function gets the name and calls the displayGroupSizeAhead().
 void doList (pGroup head, int debugMode)
 {
- /* get group name from input */
- char *name = getName();
- if (NULL == name) {
-    printf ("Error: List command requires a name to be given\n");
-    printf ("List command is of form: l <name>\n");
-    printf ("  where: <name> is the name of the group to inquire about\n");
-    return;
- }
+	 /* get group name from input */
+	 char *name = getName();
+	 if (NULL == name) {
+		printf ("Error: List command requires a name to be given\n");
+		printf ("List command is of form: l <name>\n");
+		printf ("  where: <name> is the name of the group to inquire about\n");
+		return;
+	 }
 
- if(doesNameExist(head, name) == YES) {
+	 if(doesNameExist(head, name) == YES) {
 		printf("Number of groups ahead of \"%s\": %d\n", name, countGroupsAhead(head, name, debugMode));
 		displayGroupSizeAhead(head, countGroupsAhead(head, name, debugMode));
 		return;
- }
-else{
+	 }
+	 else {
 		printf("Name does not exist in list\n");
 		return;
-	}
+		}
 }
 
 
