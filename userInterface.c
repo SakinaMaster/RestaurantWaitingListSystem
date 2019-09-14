@@ -15,12 +15,12 @@ int getNextNWSChar ()
 	int ch;
 	ch = getc(stdin);
 	if (ch == EOF || ch == '\n')
-	return ch;
+		return ch;
  	while (isspace (ch)) {
-    ch = getc(stdin);
-    if (ch == EOF || ch == '\n')
-    	return ch;
-   }
+		ch = getc(stdin);
+		if (ch == EOF || ch == '\n')
+			return ch;
+   	}
  	return ch;
 }
 
@@ -36,30 +36,27 @@ int getPosInt ()
 	/* clear white space characters */
  	int ch;
  	ch = getc(stdin);
- 	while (!isdigit(ch))
-   	{
-    	if ('\n' == ch)  /* error \n ==> no integer given */
-       		return 0;
-    	if (!isspace(ch)) /* error non white space ==> integer not given next */
-      	{
-       		clearToEoln();
-       		return 0;
-      	}
-    	ch = getc(stdin);
+ 	while (!isdigit(ch)) {
+		if ('\n' == ch)  /* error \n ==> no integer given */
+			return 0;
+		if (!isspace(ch)) { /* error non white space ==> integer not given next */
+			clearToEoln();
+			return 0;
+		}
+    		ch = getc(stdin);
    	}
 
  	value = ch - '0';
  	ch = getc(stdin);
- 	while (isdigit(ch))
-   	{
-    	value = value * 10 + ch - '0';
-    	ch = getc(stdin);
+ 	while (isdigit(ch)) {
+		value = value * 10 + ch - '0';
+		ch = getc(stdin);
    	}
 	ungetc (ch, stdin);  /* put the last read character back in input stream */
 
  	/* Integer value of 0 is an error in this program */
  	if (0 == value)
-    clearToEoln();
+		clearToEoln();
    	return value;
 }
 
@@ -71,11 +68,10 @@ char* getName()
 	/* skip over the white space characters */
  	int ch;
  	ch = getc(stdin);
- 	while (isspace(ch))
-   	{
-    	if ('\n' == ch)  /* error \n ==> no integer given */
-       	return NULL;
-    	ch = getc(stdin);
+ 	while (isspace(ch)) {
+    		if ('\n' == ch)  /* error \n ==> no integer given */
+       			return NULL;
+    		ch = getc(stdin);
    	}
 	char *word;
  	int size;
@@ -84,45 +80,40 @@ char* getName()
   
  	// read in character-by-character until the newline is encountered
  	int count = 0;
-	while (ch != '\n')
-   	{
-    	if (count+1 >= size)
-      	{
-       		// to grow an array to make it "dynamically sized" using malloc
-       		char* temp;
-       		int i;
-       		size = size * 2;
-       		temp = (char *) malloc (sizeof(char) * size);
-       		
-			// printf ("Growing array from size %d to size %d\n", count, size);
-       		// copy the characters to the new array
-       		for (i = 0 ; i < count ; i++)
-           	temp[i] = word[i];
+	while (ch != '\n') {
+		if (count+1 >= size) {
+			// to grow an array to make it "dynamically sized" using malloc
+			char* temp;
+			int i;
+			size = size * 2;
+			temp = (char *) malloc (sizeof(char) * size);
 
-       		free (word);
-       		word = temp;
-      	}
+			// printf ("Growing array from size %d to size %d\n", count, size);
+			// copy the characters to the new array
+			for (i = 0 ; i < count ; i++)
+				temp[i] = word[i];
+
+			free (word);
+			word = temp;
+      		}
 		word[count] = ch;
-    	count++;
-    	word[count] = '\0';
+		count++;
+		word[count] = '\0';
 		// read next character
-    	ch = getc(stdin);
+		ch = getc(stdin);
    	}
 
- 	if (count > 30)
-   	{
-    	count = 30;
-    	word[count] = '\0';
+ 	if (count > 30) {
+		count = 30;
+		word[count] = '\0';
    	}
  
  	/* clear ending white space characters */
- 	while (isspace (word[count-1]))
-   	{
-    	count--;
-    	word[count] = '\0';
+ 	while (isspace (word[count-1])) {
+		count--;
+		word[count] = '\0';
    	}
-
- 	return word;
+	return word;
 }
 
 
@@ -132,8 +123,8 @@ void clearToEoln()
 {
  	int ch;
  	do {
-     	ch = getc(stdin);
-    }while ((ch != '\n') && (ch != EOF));
+     		ch = getc(stdin);
+    	}while ((ch != '\n') && (ch != EOF));
 }
 
 
@@ -165,10 +156,8 @@ int main (int argc, char **argv)
  	
  	int debugMode = FALSE;      		//Declare a variable debugMode with initial value of false.
 	int i; 
-	for ( i = 0 ; i < argc ; i++ )
-	{
-		if (( argv[i][0] == '-') && (argv[i][1] == 'd'))	//If user enters '-d' in command line argument, the program runs in debug mode.
-		{
+	for ( i = 0 ; i < argc ; i++ ) {
+		if (( argv[i][0] == '-') && (argv[i][1] == 'd')) {	//If user enters '-d' in command line argument, the program runs in debug mode.
 			printf("\nDEBUG MODE ON\n");
 			debugMode = TRUE;
 		}
@@ -177,64 +166,52 @@ int main (int argc, char **argv)
 	printf ("Starting Restaurant Wait List Program\n\n");
  	printf ("Enter command: ");
 
- 	while ((ch = getNextNWSChar ()) != EOF)
-   	{
+ 	while ((ch = getNextNWSChar ()) != EOF) {
     	/* check for the various commands */
-   	 	if ('q' == ch)
-      	{
-       		printf ("Quitting Program\n");
-       		return (0);
-      	}
-    	else if ('?' == ch)
-      	{
-       		printCommands();
-      	}
-    	else if('a' == ch)
-      	{
-       		doAdd(&head);
-       		if(debugMode == TRUE) {
-       			displayListInformation(head);
+   	 	if ('q' == ch) {
+			printf ("Quitting Program\n");
+			return (0);
+      		}
+		else if ('?' == ch) {
+			printCommands();
+		}
+		else if('a' == ch) {
+			doAdd(&head);
+			if(debugMode == TRUE) {
+				displayListInformation(head);
 			}
-      	} 
-    	else if('c' == ch)
-      	{
-       		doCallAhead(&head);
-       		if(debugMode == TRUE) {
-       			displayListInformation(head);
+		} 
+		else if('c' == ch) {
+			doCallAhead(&head);
+			if(debugMode == TRUE) {
+				displayListInformation(head);
 			}
-      	} 
-    	else if('w' == ch)
-      	{
-       		doWaiting(head, debugMode);
-      	} 
-    	else if('r' == ch)
-      	{
-       		doRetrieve(&head, debugMode);
-      	} 
-    	else if('l' == ch)
-      	{
-       		doList(head, debugMode);
-      	} 
-    	else if('d' == ch)
-      	{
-       		doDisplay(head);
-      	} 
-    	else if('\n' == ch)
-      	{
-       		/* nothing entered on input line     
-        	do nothing, but don't give error  */
-      	} 
-    	else
-      	{
-       		printf ("%c - in not a valid command\n", ch);
-       		printf ("For a list of valid commands, type ?\n");
-       		clearToEoln();
-      	}
+		} 
+		else if('w' == ch) {
+			doWaiting(head, debugMode);
+		} 
+		else if('r' == ch) {
+			doRetrieve(&head, debugMode);
+		} 
+		else if('l' == ch) {
+			doList(head, debugMode);
+		} 
+		else if('d' == ch) {
+			doDisplay(head);
+		} 
+		else if('\n' == ch) {
+			/* nothing entered on input line     
+			do nothing, but don't give error  */
+		} 
+		else {
+			printf ("%c - in not a valid command\n", ch);
+			printf ("For a list of valid commands, type ?\n");
+			clearToEoln();
+		}
       	
 
-    	printf ("\nEnter command: ");
-   }
-
- 	printf ("Quiting Program - EOF reached\n");
+    		printf ("\nEnter command: ");
+   	}
+	printf ("Quiting Program - EOF reached\n");
  	return 1;
 }//end main()
